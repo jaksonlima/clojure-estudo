@@ -39,6 +39,9 @@
 (def my-record (->MyRecord 10))
 
 (def my-atom2 (atom my-record))
+(
+  def my-atom
+  (atom {:person {:name "lima" :age 27}}))
 
 ;(defn geted [] (get-value @my-atom2))
 ;
