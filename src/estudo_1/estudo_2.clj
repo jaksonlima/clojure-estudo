@@ -34,7 +34,7 @@
 (defrecord MyRecord [value]
   MyProtocol2
   (get-value [this] value)
-  (set-value [this new-value] (assoc this :value new-value)))
+  (set-value [this new-value] (assoc this value new-value)))
 
 (def my-record (->MyRecord 10))
 
@@ -53,7 +53,7 @@
     (println "New value:" (get-value new-instance))
     new-instance))
 
-;(process-protocol my-record)
+(process-protocol my-record)
 
 (defn process-protocol-2 [protocol-instance]
   (println "Current value:" (get-value @protocol-instance))
