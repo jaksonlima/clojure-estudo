@@ -46,3 +46,6 @@
     (println "menor de 18")
     (println "indiferente")
     ))
+
+
+(println (neg? (count [])))
