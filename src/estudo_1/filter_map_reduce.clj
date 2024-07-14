@@ -29,6 +29,47 @@
   [idades]
   (reduce + idades))
 
-(defn total-idade-2
-  [idades]
-  (reduce (fn [current total] (println total current) (+ (:age current) (:age total))) idades))
+
+(defn total-ages
+  [ages]
+  (reduce (fn [sum item] (+ sum (:age item))) 0 ages)
+  )
+
+(total-ages [ {:age 15} {:age 15}])
+
+(defn tamanho-medio-dos-nomes
+  [nomes]
+  (/ (reduce + 0 (map count nomes)) (count nomes)))
+
+(tamanho-medio-dos-nomes ["jakson" "lima"])
+
+(defn menor-que-3
+  [nomes]
+  (let [nomes-maior-3 (filter #(> (count %1) 3) nomes)]
+    nomes-maior-3))
+
+(defn tamanho-medio-dos-nomes-maior-3
+  [nomes]
+  (let [menor-3 (menor-que-3 nomes)]
+    (/ (reduce + 0 (map count menor-3)) (count menor-3)))
+  )
+
+(defn tamanho-dos-nomes
+  [nomes]
+  (map #(count (:name %1)) nomes))
+
+(tamanho-medio-dos-nomes [{:name "jakson"} {:name "lima"} {:name "cod"}])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
