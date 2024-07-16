@@ -16,4 +16,10 @@
   [disciplinas semestre-atual]
   (filter (fn [map] (>= (:semestre map) semestre-atual)) (disciplinas)))
 
-(nome-disiplinas-restantes todas-disciplinas 1)
+(defn nome-disiplinas-restantes
+  [disciplinas semestre-atual]
+  (let [filtrado (filter #(>= (:semestre %1) semestre-atual) (disciplinas))]
+    (map :nome filtrado))
+  )
+
+(nome-disiplinas-restantes todas-disciplinas 0)

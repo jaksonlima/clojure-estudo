@@ -5,5 +5,8 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [clj-http "3.12.3"]
-                 [cheshire "5.10.0"]]
+                 [cheshire "5.10.0"]
+                 [org.clojure/tools.logging "1.2.4"]
+                 [org.slf4j/slf4j-api "1.7.30"]
+                 [ch.qos.logback/logback-classic "1.2.3"]]
   :repl-options {:init-ns estudo-1.estudo-1})
