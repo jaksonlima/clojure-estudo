@@ -22,4 +22,15 @@
     (map :nome filtrado))
   )
 
+(defn upper
+  [value]
+  (clojure.string/upper-case value))
+
+(defn nome-disiplinas-restantes
+  [disciplinas semestre-atual]
+  (let [filtrado (filter #(>= (:semestre %1) semestre-atual) (disciplinas))
+        names (map :nome filtrado)]
+    (map upper names))
+  )
+
 (nome-disiplinas-restantes todas-disciplinas 0)
