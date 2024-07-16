@@ -80,9 +80,16 @@
 (swap! a inc)
 (println @a)
 
+(def my-array [{:id 1} {:id 2} {:id 3}])
 
+(defn my-print
+  [value]
+  (println "executou")
+  (println value))
 
-
+(->> my-array
+    (map :id)
+     (filter #(= 1 %1)))
 
 
 
