@@ -53,6 +53,24 @@
     (assoc :age 27)
     (update :age inc))
 
+(as-> person v
+      (assoc v :age 27)
+      (update v :age inc))
+
+(-> person
+    :name
+     (upper-case))
+
+(-> "prefix JAKSO LIMA" clojure.string/lower-case (.startsWith "prefix"))
+
+(.startsWith "prefix JAKSON" "prefix")
+
+(def a-map {:counter "0"})
+(when-let [counter (:counter a-map)]
+  (inc (Long/parseLong counter)))
+
+(some-> a-map :counter Long/parseLong inc)
+
 ;(def result (future (Thread/sleep 9000) (+ 1 1)))
 ;@result  ;; Bloca até que o resultado esteja disponível.
 ;
