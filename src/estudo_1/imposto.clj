@@ -1,4 +1,4 @@
-(ns banco.imposto.logic)
+(ns banco.imposto.imposto)
 
 (defn- esta-na-faixa-isencao?
   [valor]

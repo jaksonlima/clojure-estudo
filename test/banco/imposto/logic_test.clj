@@ -1,5 +1,5 @@
 (ns banco.imposto.logic-test
-  (:require [banco.imposto.logic :as logic]
+  (:require [banco.imposto.imposto :as logic]
     ;[banco.imposto.logic :refer [imposto-retido-font]]
             [clojure.test :refer :all]))
 
