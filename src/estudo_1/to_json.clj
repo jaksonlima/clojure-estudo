@@ -6,3 +6,11 @@
 (def json-str (json/generate-string my-map))
 
 (println json-str)
+
+(defn converter-json
+  [value]
+  (json/generate-string value))
+
+(defn parse-smile
+  [value]
+  (json/parse-smile value))
