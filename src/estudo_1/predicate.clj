@@ -142,43 +142,72 @@
            :dog/breed "retriever"})
 
 
+(s/def :event/type keyword?)
+(s/def :event/timestamp int?)
+(s/def :search/url #(re-matches #"^https://.*" %1))
+(s/def :error/message string?)
+(s/def :error/code int?)
+
+(s/conform :search/url "https://lima.com")
+(s/valid? :search/url "https://lima.com")
+
+(defmulti event-type :event/type)
+(defmethod event-type :event/search [_]
+  (s/keys :req [:event/type :event/timestamp :search/url]))
+(defmethod event-type :event/error [_]
+  (s/keys :req [:event/type :event/timestamp :error/message :error/code]))
 
 
+(s/def :event/event (s/multi-spec event-type :event/type))
+
+(s/valid? :event/event
+          {:event/type :event/search
+           :event/timestamp 1463970123000
+           :search/url "https://clojure.org"})
+(s/valid? :event/event
+          {:event/type :event/error
+           :event/timestamp 1463970123000
+           :error/message "Invalid host"
+           :error/code 500})
 
 
+(s/conform (s/coll-of keyword?) [:a :b :c])
+(s/conform (s/coll-of number?) #{5 10 2})
 
 
+(defn adder [x] #(+ x %2))
+((adder 10) 10 5)
+
+(s/fdef clojure.core/declare
+        :args (s/cat :names (s/* simple-symbol?))
+        :ret any?)
 
 
+(def suit? #{:club :diamond :heart :spade})
+(def rank? (into #{:jack :queen :king :ace} (range 2 11)))
+(def deck (for [suit suit? rank rank?] [rank suit]))
 
+(s/def :game/card (s/tuple rank? suit?))
+(s/def :game/hand (s/* :game/card))
 
+(s/def :game/name string?)
+(s/def :game/score int?)
+(s/def :game/player (s/keys :req [:game/name :game/score :game/hand]))
 
+(s/def :game/players (s/* :game/player))
+(s/def :game/deck (s/* :game/card))
+(s/def :game/game (s/keys :req [:game/players :game/deck]))
 
+(def kenny
+  {:game/name "Kenny Rogers"
+   :game/score 100
+   :game/hand []})
+(s/valid? :game/player kenny)
 
+(s/explain :game/game
+           {:game/deck deck
+            :game/players [{:game/name "Kenny Rogers"
+                            :game/score 100
+                            :game/hand [[2 :banana]]}]})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+(def status {:status 0})
