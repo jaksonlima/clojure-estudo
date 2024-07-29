@@ -250,10 +250,99 @@
         (println name location "-" description)
                                   (println "okokok"))
 
+(defn test [a b c d]
+  (println a b c d))
+
+(test "" "" "" (fn [value] value))
+
+(do
+  (println "step 1")
+  (println "step 1")
+  (println "step 1")
+  false
+  true
+  )
+
+(try
+  (println "next step")
+  (throw (RuntimeException. "This is a runtime exception"))
+  (catch Exception e
+    (throw (RuntimeException. "Error is expected"))))
 
 
+(defn anded
+  [])
+(and
+  (< 3 2)
+  (< 3 2)
+  (< 3 2)
+  )
+
+(def person {:id 4 :name "lima" :hair-color "green" :profiles [{:type 1}]})
+(assoc person :id 2)
+(update person :id inc)
+(update person :id #(+ %1 %1))
+(update person :id (fn [value] (* value value)))
+(update person :id (fn [_] 1))
+
+(defn transform [person]
+  (update (assoc person :hair-color :gray) :age inc))
+
+(transform {:name "Socrates", :age 39})
+
+(defn transform* [person]
+  (-> person
+      (assoc :hair-color :gray)
+      (update :age inc)))
 
 
+(defn transform* [person]
+  (-> person
+      (assoc ,,, :hair-color :gray)
+      (update ,,, :age inc)))
+
+(transform {:name "Socrates", :age 39})
+(transform* {:name "Socrates", :age 39})
+
+(-> person :hair-color name clojure.string/upper-case)
+(clojure.string/upper-case (:hair-color person))
+
+(defn calculate []
+  (reduce + (map #(* % %) (filter odd? (range 10)))))
+
+(calculate)
+
+(defn calculate* []
+  (->> (range 10)
+       (filter odd? ,,,)
+       (map #(* % %) ,,,)
+       (reduce + ,,,)))
+
+(as-> [:foo :bar] v
+      (println v)
+      (map name v)
+      (first v)
+      (.substring v 1))
+
+(map :id [{:id 1} {:id 2}])
+
+(as-> [:foo :bar] v
+      (map name v)
+      (first v)
+      (.substring v 1)
+      (clojure.string/upper-case v))
+
+(some-> (compute) Long/parseLong)
+
+(defn describe-number [n]
+  (cond-> ["start"]
+          (odd? n) (conj "odd")
+          (even? n) (conj "even")
+          (zero? n) (conj "zero")
+          (pos? n) (conj "positive")))
+
+(describe-number 3)
+(describe-number 4)
 
 
 
